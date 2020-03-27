@@ -3,7 +3,10 @@ import { FiArrowLeft } from "react-icons/fi";
 
 import "./style.css";
 
+import api from "../../services/api";
+
 import logo from "../../assets/logo.svg";
+import { useHistory } from "react-router";
 
 export default () => {
 	const [name, setName] = useState("");
@@ -12,8 +15,21 @@ export default () => {
 	const [city, setCity] = useState("");
 	const [state, setState] = useState("");
 
-	function handleRegister(e) {
+	const history = useHistory();
+
+	async function handleRegister(e) {
 		e.preventDefault();
+		const data = { name, email, whatsapp, city, state };
+
+		try {
+			const response = await api.post("/ongs", data);
+			alert(`Your registration ID is: ${response.data.id}`);
+			history.push("/");
+		} catch (e) {
+			alert(
+				`A problem occurred on creating your ID. Error: ${e.message}`
+			);
+		}
 	}
 
 	return (
@@ -36,30 +52,30 @@ export default () => {
 					<input
 						placeholder="ONG's name"
 						value={name}
-						onClick={e => setName(e.target.value)}
+						onChange={e => setName(e.target.value)}
 					/>
 					<input
 						type="email"
 						placeholder="E-mail"
 						value={email}
-						onClick={e => setEmail(e.target.value)}
+						onChange={e => setEmail(e.target.value)}
 					/>
 					<input
 						placeholder="Whatsapp"
 						value={whatsapp}
-						onClick={e => setWhatsapp(e.target.value)}
+						onChange={e => setWhatsapp(e.target.value)}
 					/>
 					<div className=" input-group">
 						<input
 							placeholder="City"
 							value={city}
-							onClick={e => setCity(e.target.value)}
+							onChange={e => setCity(e.target.value)}
 						/>
 						<input
 							placeholder="State"
 							style={{ width: "90px" }}
 							value={state}
-							onClick={e => setState(e.target.value)}
+							onChange={e => setState(e.target.value)}
 						/>
 					</div>
 					<button type="submit" className="button">
