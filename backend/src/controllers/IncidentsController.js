@@ -59,16 +59,16 @@ const remove = async (request, response) => {
 		});
 	}
 
-	const incident = await connection("incidents")
+	const ongIncident = await connection("incidents")
 		.select("ong_id")
-		.where({ id })
+		.where({ ong_id })
 		.first();
 
-	if (!incident) {
+	if (!ongIncident) {
 		return response.status(404).json({ error: "Incident was not found." });
 	}
 
-	if (incident.ong_id !== ong_id) {
+	if (ongIncident.ong_id !== ong_id) {
 		return response.status(401).json({ error: "Operation not allowed." });
 	}
 
@@ -76,7 +76,7 @@ const remove = async (request, response) => {
 		.where({ id })
 		.delete();
 
-	return response.status(204);
+	return response.status(204).json();
 };
 module.exports = {
 	index,
