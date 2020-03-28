@@ -71,7 +71,7 @@ export default () => {
 					<View style={styles.incident}>
 						<Text style={styles.incidentProperty}>ONG:</Text>
 						<Text style={styles.incidentValue}>
-							{incident.id}-{incident.name}
+							{incident.name} at {incident.city}/{incident.state}
 						</Text>
 						<Text style={styles.incidentProperty}>INCIDENT:</Text>
 						<Text style={styles.incidentValue}>
